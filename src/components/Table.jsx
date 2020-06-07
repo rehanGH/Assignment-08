@@ -35,22 +35,19 @@ class Table extends Component {
   }
  
   fillAll = (event) => {
-    if(this.state.clear === true)
-      alert("unclick clear all")
-    else {
+
     this.setState(prevState => ({
-      fill: !prevState.fill
+      fill: !prevState.fill, clear: false
     }));
-  }
+  
   }
 
   clearAll = (event) => {
-    if(this.state.fill === true)
-      alert("unclick fill all")
-    else {
+
     this.setState(prevState => ({
-      clear: !prevState.clear
-    }));  }
+      clear: !prevState.clear, fill: false
+    }));
+  
   }
   applyColor = (event) => {
     event.target.style.backgroundColor = this.state.color;

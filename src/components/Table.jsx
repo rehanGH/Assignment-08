@@ -5,8 +5,11 @@ class Table extends Component {
   constructor() {
     super();
     this.state = {
-      rows: 5,
-      columns: 5,
+      rows: 3,
+      columns: 3,
+      cellKey: 0,
+      fill: false,
+      clear: false,
       color: null
     }
   }
@@ -30,17 +33,40 @@ class Table extends Component {
   colorChange = (event) => {
     this.setState({color: event.target.value});
   }
+ 
+  fillAll = (event) => {
 
+    this.setState(prevState => ({
+      fill: !prevState.fill, clear: false
+    }));
+  
+  }
+
+  clearAll = (event) => {
+
+    this.setState(prevState => ({
+      clear: !prevState.clear, fill: false
+    }));
+  
+  }
   applyColor = (event) => {
     event.target.style.backgroundColor = this.state.color;
   }
 
   render() {
     let rows = [];
-
-    for (let i = 0; i < this.state.rows; i++) {
-      rows.push(<TableRow columns={this.state.columns} color={this.state.color} applyColor={this.applyColor} />);
-    }
+    
+      for (let i = 0; i < this.state.rows; i++) {
+        console.log(this)
+        rows.push(<TableRow 
+          columns={this.state.columns} 
+          color={this.state.color} 
+          fill={this.state.fill}
+          clear={this.state.clear}
+          applyColor={this.applyColor} 
+          fillAll={this.fillAll}
+          clearAll={this.clearAll} />);
+      }
 
     return (
       <div>
@@ -50,6 +76,8 @@ class Table extends Component {
         <button className="button" onClick={this.addColumn}>Add Column</button>
         <button className="button" onClick={this.removeRow}>Remove Row</button>
         <button className="button" onClick={this.removeColumn}>Remove Column</button>
+        <button className="button" onClick={this.fillAll}>Fill All</button>
+        <button className="button" onClick={this.clearAll}>Clear All</button>
         <select className="select-options"onChange={this.colorChange}>
           <option>Select a color... </option>
           <option value="#1b2631">Dark Blue</option>
